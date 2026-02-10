@@ -2,14 +2,14 @@
   'use strict';
 
   const ANSWERS = {
-    grammar1: ['m', 'm', 'are', 'm', 'are', 'am', 'm', 'are'],
-    grammar2: ['is', "isn't", 'is', 'is', 'is', "isn't", 'is', 'am', 'are'],
-    grammar3: ['an', 'has', 'glasses', 'have', 'an'],
-    readingTf: ['T', 'T', 'F', 'T', 'F'],
-    readingMatch: ['C', 'A', 'D', 'E', 'B']
+    grammar1: ['m', 'm', 'Are', 'am', 'Are', 'm', 'm', 'Are'],
+    grammar2: ['is', "isn't", 'is', "isn't", 'is', 'is', 'is'],
+    grammar3: ['have', 'an', 'countries', 'has', 'a'],
+    readingTf: ['T', 'F', 'F', 'T', 'T'],
+    readingMatch: ['E', 'B', 'A', 'D', 'C']
   };
 
-  const MAX_SCORE = 32;
+  const MAX_SCORE = 30;
 
   var correctAnswersFlat = [].concat(
     ANSWERS.grammar1,
@@ -22,46 +22,44 @@
   /** Правильные ответы для отображения: полные предложения или куски текста */
   var correctAnswersDisplay = [].concat(
     [
-      "I'm Petros.",
-      "I'm Hana.",
+      "I'm Carrie.",
+      "I'm Brian.",
       "Are you a student?",
-      "I'm not.",
-      "Are you from Germany?",
-      "Yes, I am",
-      "I'm from Beijing.",
-      "Are you Chinese?"
+      "Yes, I am.",
+      "Are you from Argentina?",
+      "No, I'm from Spain.",
+      "I'm from Tokyo.",
+      "Are you Japanese?"
     ],
     [
-      "My sister is a student.",
-      "Paris isn't in India.",
-      "Yun is from Korea.",
-      "Where is the airport?",
-      "Is Melbourne in Australia?",
-      "She isn't in my class.",
+      "Where is the bag?",
+      "London isn't in South Korea.",
       "What is your name?",
-      "I am a teacher.",
-      "We are from London."
+      "He isn't a student.",
+      "My sister is 20 years old.",
+      "Is Los Angeles in the USA?",
+      "Mario is from Italy."
     ],
     [
-      "I have an email.",
-      "She has a new phone.",
-      "I have glasses.",
-      "You have a sandwich.",
-      "New York is an American city."
+      "We have passports.",
+      "Arjun is an Indian name.",
+      "Italy and France are countries.",
+      "He has a new pen.",
+      "McDonalds is a restaurant."
     ],
     [
-      "Hailey is a student. — True",
-      "Daniel is from France. — True",
-      "Victor is Spanish. — False",
-      "Victor is happy. — True",
-      "Sue is from the UK. — False"
+      "Bill is British. — True",
+      "Maria is Australian. — False",
+      "Min is in Korea. — False",
+      "Min is happy. — True",
+      "Paul is South African. — True"
     ],
     [
-      "Hailey — C. singer",
-      "Daniel — A. waiter",
-      "Marc — D. taxi driver",
-      "Victor — E. shop assistant",
-      "Sue — B. nurse"
+      "Bill — E. bus driver",
+      "Maria — B. doctor",
+      "Min — A. football player",
+      "Paul — D. police officer",
+      "Kieran — C. actor"
     ]
   );
 
@@ -84,11 +82,11 @@
   }
 
   var questionNames = [
-    'g1-1','g1-2','g1-3','g1-4','g1-5','g1-6','g1-7','g1-8',
-    'g2-1','g2-2','g2-3','g2-4','g2-5','g2-6','g2-7','g2-8','g2-9',
-    'g3-1','g3-2','g3-3','g3-4','g3-5',
-    'tf-1','tf-2','tf-3','tf-4','tf-5',
-    'match-1','match-2','match-3','match-4','match-5'
+    'g1-1', 'g1-2', 'g1-3', 'g1-4', 'g1-5', 'g1-6', 'g1-7', 'g1-8',
+    'g2-1', 'g2-2', 'g2-3', 'g2-4', 'g2-5', 'g2-6', 'g2-7',
+    'g3-1', 'g3-2', 'g3-3', 'g3-4', 'g3-5',
+    'tf-1', 'tf-2', 'tf-3', 'tf-4', 'tf-5',
+    'match-1', 'match-2', 'match-3', 'match-4', 'match-5'
   ];
 
   function getFieldValue(name) {
@@ -168,11 +166,11 @@
   }
 
   function checkGrammar1() {
-    let score = 0;
-    for (let i = 0; i < 8; i++) {
-      const select = document.querySelector('select[name="g1-' + (i + 1) + '"]');
-      const value = select ? select.value : '';
-      const correct = value === ANSWERS.grammar1[i];
+    var score = 0;
+    for (var i = 0; i < 8; i++) {
+      var select = document.querySelector('select[name="g1-' + (i + 1) + '"]');
+      var value = select ? select.value : '';
+      var correct = value === ANSWERS.grammar1[i];
       if (correct) score++;
       if (select) select.classList.add(correct ? 'correct' : 'incorrect');
     }
@@ -180,12 +178,12 @@
   }
 
   function checkGrammar2() {
-    let score = 0;
-    for (let i = 0; i < 9; i++) {
-      const input = document.querySelector('input[name="g2-' + (i + 1) + '"]');
-      const value = normalizeText(input ? input.value : '');
-      const expected = ANSWERS.grammar2[i].toLowerCase();
-      const correct = value === expected;
+    var score = 0;
+    for (var i = 0; i < 7; i++) {
+      var input = document.querySelector('input[name="g2-' + (i + 1) + '"]');
+      var value = normalizeText(input ? input.value : '');
+      var expected = ANSWERS.grammar2[i].toLowerCase();
+      var correct = value === expected;
       if (correct) score++;
       if (input) input.classList.add(correct ? 'correct' : 'incorrect');
     }
@@ -193,38 +191,37 @@
   }
 
   function checkGrammar3() {
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-      const input = document.querySelector('input[name="g3-' + (i + 1) + '"]');
-      const value = normalizeText(input ? input.value : '');
-      const expected = ANSWERS.grammar3[i].toLowerCase();
-      const correct = value === expected;
+    var score = 0;
+    for (var i = 0; i < 5; i++) {
+      var select = document.querySelector('select[name="g3-' + (i + 1) + '"]');
+      var value = select ? select.value : '';
+      var correct = value === ANSWERS.grammar3[i];
       if (correct) score++;
-      if (input) input.classList.add(correct ? 'correct' : 'incorrect');
+      if (select) select.classList.add(correct ? 'correct' : 'incorrect');
     }
     return score;
   }
 
   function checkReadingTf() {
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-      const name = 'tf-' + (i + 1);
-      const checked = document.querySelector('input[name="' + name + '"]:checked');
-      const value = checked ? checked.value : '';
-      const correct = value === ANSWERS.readingTf[i];
+    var score = 0;
+    for (var i = 0; i < 5; i++) {
+      var name = 'tf-' + (i + 1);
+      var checked = document.querySelector('input[name="' + name + '"]:checked');
+      var value = checked ? checked.value : '';
+      var correct = value === ANSWERS.readingTf[i];
       if (correct) score++;
-      const li = document.querySelector('.tf-list li:nth-child(' + (i + 1) + ')');
+      var li = document.querySelector('.tf-list li:nth-child(' + (i + 1) + ')');
       if (li) li.classList.add(correct ? 'correct' : 'incorrect');
     }
     return score;
   }
 
   function checkReadingMatch() {
-    let score = 0;
-    for (let i = 0; i < 5; i++) {
-      const select = document.querySelector('select[name="match-' + (i + 1) + '"]');
-      const value = select ? select.value : '';
-      const correct = value === ANSWERS.readingMatch[i];
+    var score = 0;
+    for (var i = 0; i < 5; i++) {
+      var select = document.querySelector('select[name="match-' + (i + 1) + '"]');
+      var value = select ? select.value : '';
+      var correct = value === ANSWERS.readingMatch[i];
       if (correct) score++;
       if (select) select.classList.add(correct ? 'correct' : 'incorrect');
     }
@@ -237,9 +234,9 @@
       var name = questionNames[i];
       var userVal = getFieldValue(name);
       var correctVal = correctAnswersFlat[i];
-      var isTextInput = name.indexOf('g2-') === 0 || name.indexOf('g3-') === 0;
+      var isTextInput = name.indexOf('g2-') === 0;
       var correct = isTextInput
-        ? normalizeText(userVal) === correctVal.toLowerCase()
+        ? normalizeText(userVal) === (correctVal || '').toLowerCase()
         : (userVal || '') === (correctVal || '');
       if (!correct) {
         errors.push({
@@ -267,7 +264,7 @@
 
     var sectionScores = [
       { section: 'grammar-1', score: s1, max: 8 },
-      { section: 'grammar-2', score: s2, max: 9 },
+      { section: 'grammar-2', score: s2, max: 7 },
       { section: 'grammar-3', score: s3, max: 5 },
       { section: 'reading-tf', score: s4, max: 5 },
       { section: 'reading-match', score: s5, max: 5 }
